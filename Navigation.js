@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import firebase from './firebase';
 import {
   Text,
   ScrollView,
@@ -60,6 +61,35 @@ export default function Navigation() {
         
     );
   }
+  function AdminDisplayData() {
+    const [dataList, setDataList] = useState();
+  
+    useEffect(() => {
+      const postRef = firebase.database("https://porchfestapp-default-rtdb.firebaseio.com/").ref("PostList");
+      postRef.on("value", (snapshot) => {
+        const posts = snapshot.val();
+        const dataList = [];
+        for (let id in posts) {
+          dataList.push(posts[id]);
+        }
+        setDataList(dataList.reverse());
+      });
+    }, []);
+  
+    return (
+      //loop thru Comp IndvPost
+        
+          <View>
+            {dataList
+              ? dataList.map((post, index) => (
+                  <AdminPostList post={post} key={index} />
+                ))
+              : ""}
+          </View>
+          
+  
+    );
+  }
 
   function AboutScreen() {
     return (
@@ -81,7 +111,7 @@ export default function Navigation() {
 
         <View style={{ marginLeft: 5 }}>
           <Text>
-            Porchfest is a music festival held on the porches of the Fall Creek
+            TestAPP is a music festival held on the porches of the Fall Creek
             and Northside neighborhoods of Ithaca, NY.
           </Text>
           <Text></Text>
@@ -443,12 +473,13 @@ export default function Navigation() {
     );
   }
 
-  function Tabs() {
+  function Tabs() {  
     return (
+      
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="About"
-          component={AboutScreen}
+          component={AdminDisplayData}
           options={{
             // tabBarActiveTintColor: "#6FD6F6",
             tabBarIcon: ({ focused, color, size }) => {
