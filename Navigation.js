@@ -1,5 +1,7 @@
+import firebase from "firebase/app";
+import "firebase/database";
+import { initializeApp } from "firebase/app";
 import React, { useEffect, useState } from "react";
-import firebase from './firebase';
 import {
   Text,
   ScrollView,
@@ -12,6 +14,7 @@ import {
   Modal,
   Image,
   ImageBackground,
+  Button,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -20,6 +23,7 @@ import MapView from "react-native-maps";
 import Styles from "./Styles.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Marker } from "react-native-maps";
+import { Firestore } from "firebase/firestore";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -36,59 +40,62 @@ export default function Navigation() {
   function HomeScreen({ navigation }) {
     return (
       <>
-        <ImageBackground source ={{uri: "https://theithacan.org/wp-content/uploads/2019/09/Porchfest-2019_KH.jpg"}}
-        style = {{flex:1}}>
-     <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Porchfest Pro")}
-          activeOpacity={0.6}
-          underlayColor="red"
+        <ImageBackground
+          source={{
+            uri: "https://theithacan.org/wp-content/uploads/2019/09/Porchfest-2019_KH.jpg",
+          }}
+          style={{ flex: 1 }}
         >
-          <Text style={Styles.button}>Start App!</Text>
-        </TouchableOpacity>
-      </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Porchfest Pro")}
+              activeOpacity={0.6}
+              underlayColor="red"
+            >
+              <Text style={Styles.button}>Start App!</Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
-
       </>
-    
-        
     );
   }
-  function AdminDisplayData() {
-    const [dataList, setDataList] = useState();
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD1Q0MJXDNqPbpZmrkGw8Lm4TaNts14YGk",
+  authDomain: "fuckingporchfest.firebaseapp.com",
+  projectId: "fuckingporchfest",
+  storageBucket: "fuckingporchfest.appspot.com",
+  messagingSenderId: "806831866184",
+  appId: "1:806831866184:web:44ac0956c957e5e09f337d",
+  databseURL: "https://fuckingporchfest-default-rtdb.firebaseio.com/"
+};
+
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
   
-    useEffect(() => {
-      const postRef = firebase.database("https://porchfestapp-default-rtdb.firebaseio.com/").ref("PostList");
-      postRef.on("value", (snapshot) => {
-        const posts = snapshot.val();
-        const dataList = [];
-        for (let id in posts) {
-          dataList.push(posts[id]);
-        }
-        setDataList(dataList.reverse());
-      });
-    }, []);
-  
-    return (
-      //loop thru Comp IndvPost
-        
-          <View>
-            {dataList
-              ? dataList.map((post, index) => (
-                  <AdminPostList post={post} key={index} />
-                ))
-              : ""}
-          </View>
-          
-  
-    );
+  function TestPush() {
+
+
+    return
+     <View>
+      <Text>Test</Text>
+    </View>;
+      
+
   }
 
   function AboutScreen() {
@@ -140,6 +147,7 @@ export default function Navigation() {
             many bands who play each year for their neighbors and visitors.
             That's what it's really all about!{"\n"}
           </Text>
+          <Button title="testPush" onPress={TestPush}></Button>
         </View>
       </ScrollView>
     );
@@ -329,11 +337,10 @@ export default function Navigation() {
       longitudeDelta: 0.01314,
     });
 
-    const [showAllMarkers, setShowAllMarkers] = useState(false)
-    const [showFavMarkers, setShowFavMarkers] = useState(false)
-    const [allText, setAllText] = useState("Show All")
-    const [favsText, setFavsText] = useState("Show Favorites")
-
+    const [showAllMarkers, setShowAllMarkers] = useState(false);
+    const [showFavMarkers, setShowFavMarkers] = useState(false);
+    const [allText, setAllText] = useState("Show All");
+    const [favsText, setFavsText] = useState("Show Favorites");
 
     const onRegionChange = (region) => {
       setRegion(region);
@@ -341,78 +348,87 @@ export default function Navigation() {
 
     return (
       <>
-      <View>
-      <TouchableOpacity // was touchablehighlight
+        <View>
+          <TouchableOpacity // was touchablehighlight
             style={{
-              ...Styles.mapButton
+              ...Styles.mapButton,
             }}
             onPress={() => {
               if (showAllMarkers == true) {
                 setShowAllMarkers(false);
-                setAllText("Show All")
+                setAllText("Show All");
               } else {
                 setShowAllMarkers(true);
-                setAllText("Hide All")
+                setAllText("Hide All");
               }
             }}
           >
-            <Text style={{ alignSelf: "center", fontWeight: 'bold', color:'white'}}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
               {allText}
             </Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
-            style={{ ...Styles.mapButton}}
+            style={{ ...Styles.mapButton }}
             onPress={() => {
-              if (favorites.length == 0){
+              if (favorites.length == 0) {
                 Alert.alert("You have not favorited any performers");
-              }
-              else if (showFavMarkers == true) {
+              } else if (showFavMarkers == true) {
                 setShowFavMarkers(false);
-                setFavsText("Show Favorites")
+                setFavsText("Show Favorites");
               } else {
                 setShowFavMarkers(true);
-                setFavsText("Hide Favorites")
+                setFavsText("Hide Favorites");
               }
             }}
           >
-            <Text style={{ alignSelf: "center", fontWeight: 'bold',color:'white' }}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
               {favsText}
             </Text>
           </TouchableOpacity>
-      </View>
-      <View>
-        <MapView
-          style={Styles.map}
-          region={region}
-          onRegionChange={onRegionChange}
-        >
-        
-          {showAllMarkers &&
-            markers.map((marker, index) => (
-              <Marker
-                key={index}
-                coordinate={marker.latlng}
-                title={marker.name}
-                description={marker.address}
-                pinColor="blue"
-              />
-            ))}
+        </View>
+        <View>
+          <MapView
+            style={Styles.map}
+            region={region}
+            onRegionChange={onRegionChange}
+          >
+            {showAllMarkers &&
+              markers.map((marker, index) => (
+                <Marker
+                  key={index}
+                  coordinate={marker.latlng}
+                  title={marker.name}
+                  description={marker.address}
+                  pinColor="blue"
+                />
+              ))}
 
-          {showFavMarkers &&
-            favorites.map((marker, index) => (
-              <Marker
-                key={index}
-                coordinate={marker.latlng}
-                title={marker.name}
-                description={marker.address}
-                pinColor="yellow"
-              />
-            ))}
-        </MapView>
-      </View>
+            {showFavMarkers &&
+              favorites.map((marker, index) => (
+                <Marker
+                  key={index}
+                  coordinate={marker.latlng}
+                  title={marker.name}
+                  description={marker.address}
+                  pinColor="yellow"
+                />
+              ))}
+          </MapView>
+        </View>
       </>
-      
     );
   }
 
@@ -473,13 +489,12 @@ export default function Navigation() {
     );
   }
 
-  function Tabs() {  
+  function Tabs() {
     return (
-      
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="About"
-          component={AdminDisplayData}
+          component={AboutScreen}
           options={{
             // tabBarActiveTintColor: "#6FD6F6",
             tabBarIcon: ({ focused, color, size }) => {
