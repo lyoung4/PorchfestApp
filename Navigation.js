@@ -72,6 +72,7 @@ export default function Navigation() {
 
 // Your web app's Firebase configuration
 // Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyD1Q0MJXDNqPbpZmrkGw8Lm4TaNts14YGk",
   authDomain: "fuckingporchfest.firebaseapp.com",
