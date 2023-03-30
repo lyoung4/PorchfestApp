@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/database";
-import { initializeApp } from "firebase/app";
+import { getDatabase, initializeApp } from "firebase/app";
 import React, { useEffect, useState } from "react";
 import {
   Text,
@@ -74,30 +74,32 @@ export default function Navigation() {
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD1Q0MJXDNqPbpZmrkGw8Lm4TaNts14YGk",
-  authDomain: "fuckingporchfest.firebaseapp.com",
-  projectId: "fuckingporchfest",
-  storageBucket: "fuckingporchfest.appspot.com",
-  messagingSenderId: "806831866184",
-  appId: "1:806831866184:web:44ac0956c957e5e09f337d",
+  apiKey: "AIzaSyCLeVd1HvLKJhOmD7n4OHFTm-0gbX9TbDA",
+  authDomain: "com.porchfest.porchfestpro",
+  projectId: "porchfestpro",
+  storageBucket: "porchfestpro.appspot.com",
+  messagingSenderId: "213991852487",
+  appId: "213991852487-ni6767okoss6fbiiib28rl4v40do752q.apps.googleusercontent.com",
   databseURL: "https://fuckingporchfest-default-rtdb.firebaseio.com/"
 };
 
 
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
+console.log(app)
+
   
   function TestPush() {
-
-
-    return
+    return(
      <View>
       <Text>Test</Text>
-    </View>;
+     </View>
+    );
       
 
   }
+
 
   function AboutScreen() {
     return (

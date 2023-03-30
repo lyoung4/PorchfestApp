@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>213991852487-ni6767okoss6fbiiib28rl4v40do752q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.213991852487-ni6767okoss6fbiiib28rl4v40do752q</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCLeVd1HvLKJhOmD7n4OHFTm-0gbX9TbDA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>213991852487</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.porchfest.porchfestpro</string>
+	<key>PROJECT_ID</key>
+	<string>porchfestpro</string>
+	<key>STORAGE_BUCKET</key>
+	<string>porchfestpro.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:213991852487:ios:f874c53465c7f06d0eb1e2</string>
+	<key>DATABASE_URL</key>
+	<string>https://porchfestpro-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
