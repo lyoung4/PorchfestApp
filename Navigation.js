@@ -349,6 +349,24 @@ console.log(app)
       setRegion(region);
     };
 
+    const zoomIn = () => {
+      const newRegion = {
+        ...region,
+        latitudeDelta: region.latitudeDelta / 2,
+        longitudeDelta: region.longitudeDelta / 2,
+      };
+      setRegion(newRegion);
+    };
+  
+    const zoomOut = () => {
+      const newRegion = {
+        ...region,
+        latitudeDelta: region.latitudeDelta * 2,
+        longitudeDelta: region.longitudeDelta * 2,
+      };
+      setRegion(newRegion);
+    };
+
     return (
       <>
         <View>
@@ -401,12 +419,43 @@ console.log(app)
               {favsText}
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+          style={{ ...Styles.mapButton }}
+          onPress={zoomIn}
+        >
+          <Text
+            style={{
+              alignSelf: "center",
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            {"+"}
+          </Text>
+        </TouchableOpacity>
+<TouchableOpacity
+          style={{ ...Styles.mapButton }}
+          onPress={zoomOut}
+        >
+          <Text
+            style={{
+              alignSelf: "center",
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            {"-"}
+          </Text>
+        </TouchableOpacity>
+
+
         </View>
         <View>
           <MapView
             style={Styles.map}
             region={region}
             onRegionChange={onRegionChange}
+            scrollEnabled={true}
           >
             {showAllMarkers &&
               markers.map((marker, index) => (
@@ -434,7 +483,7 @@ console.log(app)
       </>
     );
   }
-
+  
   function FavoritesScreen() {
     const _onPressButton = (data) => {
       setName(data.item.name);
