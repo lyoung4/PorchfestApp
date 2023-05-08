@@ -302,7 +302,7 @@ console.log(app)
         var newArr = performerData.filter(
           (val) => val.time === performersArr[i].time
         );
-        performersArr[i].performers = newArr.map((performer) => performer.name);
+        performersArr[i].performers = newArr.map((performer) => performer.name + " @ " + performer.address);
       }
       setSchedule(performersArr);
     }, []);
