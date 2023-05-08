@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/database";
-import { getDatabase, initializeApp } from "firebase/app";
+import { getDatabase, initializeApp, getRef } from "firebase/app";
 import React, { useEffect, useState } from "react";
 import {
   Text,
@@ -80,17 +80,18 @@ const firebaseConfig = {
   storageBucket: "porchfestpro.appspot.com",
   messagingSenderId: "213991852487",
   appId: "213991852487-ni6767okoss6fbiiib28rl4v40do752q.apps.googleusercontent.com",
-  databseURL: "https://fuckingporchfest-default-rtdb.firebaseio.com/"
+  databseURL: "https://porchfestpro-default-rtdb.firebaseio.com"
 };
 
 
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app)
-
   
   function TestPush() {
+    const firebase = initializeApp(firebaseConfig);
+    console.log(firebase);
+    var database = firebase.database();
+    console.log(database);
+    var ref = database.getRef('Performers')
+    ref.push('/performers.json');
     return(
      <View>
       <Text>Test</Text>
